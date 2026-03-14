@@ -50,6 +50,8 @@ git clone https://github.com/RMX3366-Development/proprietary_vendor_realme_sm825
 # git clone https://github.com/PocoF3Releases/device_qcom_wfd device/qcom/wfd && \
 # git clone https://github.com/PocoF3Releases/vendor_qcom_wfd vendor/qcom/wfd && \
 
+/opt/crave/resync.sh && \
+
 # =============================
 #  Build: Vanilla → Gapps
 # =============================

@@ -14,43 +14,38 @@ rm -rf .repo/manifest.xml
 rm -rf packages/resources/devicesettings
 
 # --- Init ROM repo ---
-repo init --depth=1 -u https://github.com/Mi-Apollo/cr_android.git -b 16.0 --git-lfs && \
+repo init -u https://github.com/crdroidandroid/android.git -b 16.0 --git-lfs --no-clone-bundle && \
 
 # --- Sync ROM ---
 #/opt/crave/resync.sh && \
 repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune && \
 
 # --- Clone Device Tree ---
-rm -rf device/xiaomi
-git clone https://github.com/MurtazaKolachi/device_xiaomi_apollo -b crdroid device/xiaomi/apollo && \
+rm -rf device/realme
+git clone https://github.com/RMX3366-Development/android_device_realme_rivena -b lineage-23.2 device/realme/rivena && \
 
 # --- Clone Vendor Tree ---
-rm -rf vendor/xiaomi
-git clone https://github.com/MurtazaKolachi/vendor_xiaomi_apollo -b 16 vendor/xiaomi/apollo && \
+rm -rf vendor/realme
+git clone https://github.com/RMX3366-Development/proprietary_vendor_realme_rivena -b lineage-23.2 vendor/realme/rivena && \
 
 # --- Clone Kernel Tree ---
-rm -rf kernel/xiaomi
-git clone https://github.com/MurtazaKolachi/kernel_xiaomi_apollo -b 16 kernel/xiaomi/apollo && \
+rm -rf kernel/realme
+git clone https://github.com/bijoyv9/android_kernel_realme_sm8250 -b Entropy-1.0 kernel/realme/sm8250 && \
 #git clone https://github.com/MurtazaKolachi/android_kernel_xiaomi_apollo -b staging kernel/xiaomi/apollo && \
 
 # --- Clone Hardware Tree ---
-rm -rf hardware/xiaomi
-git clone https://github.com/LineageOS/android_hardware_xiaomi -b lineage-23.2 hardware/xiaomi && \
-#git clone https://github.com/Evolution-X-Devices/hardware_xiaomi -b bka hardware/xiaomi && \
+rm -rf hardware/oplus
+git clone https://github.com/RMX3366-Development/android_hardware_oplus -b lineage-23.2 hardware/oplus && \
 
 # --- Dolby ---
 rm -rf hardware/dolby
-#git clone https://github.com/Mi-Apollo/hardware_dolby -b moto-1.0 hardware/dolby && \
-git clone https://github.com/Mi-Apollo/lunaris2_hardware_dolby -b 16.0 hardware/dolby && \
+git clone https://github.com/RMX3366-Development/android_hardware_dolby -b 16 hardware/dolby && \
 
-# --- Device Settings ---
-rm -rf packages/resources/devicesettings
-git clone https://github.com/Mi-Apollo/android_packages_resources_devicesettings -b lineage-23.2 packages/resources/devicesettings && \
+# --- Vendor Common Device ---
+git clone https://github.com/RMX3366-Development/proprietary_vendor_realme_sm8250-common -b lineage-23.2 vendor/realme/sm8250-common && \
 
-# Private Keys
-rm -rf vendor/private-keys/keys
-git clone https://github.com/MurtazaKolachi/keys -b main vendor/private-keys/keys && \
-
+# --- OPLUS Camera ---
+git clone https://github.com/RMX3366-Development/proprietary_vendor_realme_sm8250-common -b lineage-23.1 vendor/oplus/camera && \
 # WFD repos
 # git clone https://github.com/PocoF3Releases/device_qcom_wfd device/qcom/wfd && \
 # git clone https://github.com/PocoF3Releases/vendor_qcom_wfd vendor/qcom/wfd && \
@@ -62,7 +57,7 @@ git clone https://github.com/MurtazaKolachi/keys -b main vendor/private-keys/key
 # --- Vanilla Build ---
 echo "===== Starting Vanilla Build ====="
 . build/envsetup.sh && \
-breakfast apollo userdebug && \
+brunch rivena && \
 make installclean && \
 mka bacon
 
